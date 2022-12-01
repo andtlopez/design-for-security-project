@@ -1,0 +1,25 @@
+Research and analyze which of the vulnerabilities appear to be related to the code that was deployed for the environment in this project.
+> securityhub-s3-bucket-server-side-encryption-enabled-e1979486
+> securityhub-s3-bucket-level-public-access-prohibited-69653eb7
+> securityhub-s3-account-level-public-access-blocks-periodic-e9623cd7
+> securityhub-nacl-no-unrestricted-ssh-rdp-a2ca5fe5
+> securityhub-restricted-rdp-e774785e
+> securityhub-restricted-ssh-b6d81d5e
+> securityhub-vpc-sg-restricted-common-ports-1f4cfd73
+> securityhub-vpc-sg-open-only-to-authorized-ports-775c5751
+> On instance i-0d78ae84d5a9eaebe, TCP port 21 which is associated with 'FTP' is reachable from the internet
+> On instance i-0d78ae84d5a9eaebe, TCP port 20 which is associated with 'FTP' is reachable from the internet
+> On instance i-0d78ae84d5a9eaebe, TCP port 23 which is associated with 'Telnet' is reachable from the internet
+> On instance i-0d78ae84d5a9eaebe, UDP port 21 which is associated with 'FTP' is reachable from the internet
+> On instance i-0d78ae84d5a9eaebe, UDP port 23 which is associated with 'Telnet' is reachable from the internet
+> On instance i-0d78ae84d5a9eaebe, UDP port 20 which is associated with 'FTP' is reachable from the internet
+> CIS.4.1	Ensure no security groups allow ingress from 0.0.0.0/0 to port 22
+> CIS.4.2	Ensure no security groups allow ingress from 0.0.0.0/0 to port 3389
+
+Bonus - provide recommendations on how to remediate the vulnerabilities.
+> For securityhub-s3-bucket-server-side-encryption-enabled-e1979486, S3 bucket server-side encryption should be enabled by default
+> For securityhub-s3-bucket-level-public-access-prohibited-69653eb7 and securityhub-s3-account-level-public-access-blocks-periodic-e9623cd7, unless buckets need to serve static HTML, Public Access should be blocked by default
+> For securityhub-nacl-no-unrestricted-ssh-rdp-a2ca5fe5, SSH and RDP ports should be blocked by default, unless access is needed. If access is needed, configure only specific subnet ranges.
+> For securityhub-vpc-sg-restricted-common-ports-1f4cfd73 and securityhub-vpc-sg-open-only-to-authorized-ports-775c5751, TCP and UDP ports accessible from the internet - ports should be blocked by default. If access is needed, configure with least privilege access.
+> For CIS 4.1 and securityhub-restricted-ssh-b6d81d5e, unless an instance needs to be accessed through ssh, Security Group should be configured to block ingress traffic on port 22. If ssh access is needed, limit only to the IP addresses that need it.
+> For CIS 4.1 and securityhub-restricted-rdp-e774785e, unless an instance needs to be accessed through RDP, Security Group should be configured to block ingress traffic on port 3389. If RDP access is needed, limit only to the IP addresses that need it.

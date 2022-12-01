@@ -1,0 +1,19 @@
+Based on the architecture diagram, and the steps you have taken so far to upload data and access the application web service, identify at least 2 obvious poor practices as it relates to security.  Include justification.
+
+# Poor practice 1
+Web service hosted on HTTP load balancer listening to port 80 - Web service load balancer only process HTTPS requests on port 443. All HTTP port 80 rquests should be forced redirected to HTTPS 443. Since the load balancer is public facing, we should ensure all connections to it are encrypted by forcing to accept requests through HTTPS 443 only.
+
+# Poor practice 2
+Web application instance is configured to accept all connections on port 5000. This violates the principle of least privilege. The Web app instance should be configured with a security group to allow only to listen to requests from AppLoadBalancerSG on port 5000.
+
+# Poor practice 3
+Checking c3-app.yml, WebAppSG is allowing all connections on ports 5000, 80, and 22 - since the web application only needs to listen to port 5000 requests from the web service instance, the security group needs to be re-configured with the least privilege access, only listening to requests from the AppLoadBalancerSG on port 5000.
+
+# Poor practice 4
+Checking c3-app.yml, the IAM Role being assigned to all EC2 instances have ALL access to the S3 buckets. This violates the principle of least privilege. As a best practice, we should create IAM roles for each EC2 instances, giving only the needed access. For example, providing "getObject" only permissions to the web application instance.
+
+# Poor practice 5
+Checking the S3 buckets created, Public Access has been enabled for all of them with versioning and encryption turned off. This violates the principle of least privilege. Since client request API is going to be called to pull contents from Free Recipes, Public Access should be disabled. For Secret Recipe Vault, access should only be given to Privileged Business users. Also, encryption keys should enabled to only allow decrypted data access to the app and privileged users. Lastly, versioning should be enabled so just in case a data breach occurs, other versions can still be accessed.
+
+# Poor practice 6
+Checking the Private Subnets, NACL allows all connections on inbound and outbound, also it's connected to the Internet Gateway. As a best practice, traffic should only be limited to networks that need access to the Private Subnet. Also, if outside access is required for the Private Subnet, NAT Gateway should be used and hosted on a Public Subnet.

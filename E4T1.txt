@@ -1,0 +1,9 @@
+
+
+# Identify 2-3 changes that can be made to our environment to prevent an ssh brute force attack from the internet.
+> Disable ssh access on the instance and just use Session Manager (under Systems Manager) to access the terminal of an instance
+> If SSH access is needed, configure Security Group to enable access only on selected IP addresses
+> Disable password authentication on AWS EC2 instances
+
+# Neither instance should have had access to the secret recipes bucket, in the even that instance API credentials were compromised how could we have prevented access to sensitive data.
+> Access to sensitive data could've have been prevented if the IAM Role Policy (InstanceRolePolicy-C3) didn't give full access to EC2 instances on S3 buckets, especially the secret recipes bucket. The principle of "least privilege" should have been followed, creating separate roles for each access and applying them to the EC2 instances.

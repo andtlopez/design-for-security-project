@@ -1,0 +1,32 @@
+# Identify tools that will allow you to do the following:
+
+## Scan infrastructure as code templates
+> Regula: https://github.com/fugue/regula
+> CFRipper: https://github.com/Skyscanner/cfripper
+### Example vulnerability
+> For Regula:
+    FG_R00092: IAM policies should not have full "*:*" administrative privileges [High]
+            https://docs.fugue.co/FG_R00092.html
+    [1]: aws_iam_policy.policy
+        in iam_policy.tf:1:1
+    Found one problem.
+> For CFRipper
+    S3BucketPublicReadAclAndListStatementRule: S3 Bucket S3BucketPolicyAccountAccess should not have a public read acl and list bucket statement
+
+##Scan AMI’s or containers for OS vulnerabilities
+> Clair: https://github.com/quay/clair
+> Anchore: https://github.com/anchore/anchore-engine
+### Example vulnerability
+> For Clair
+    Was able to detect CVE-2019-13627: https://tbhaxor.com/find-vulnerabilities-in-docker-image-using-clair/
+> For Anchore
+    Detect Log4j Vulnerabilities: https://anchore.com/log4j/how-to-find-and-fix-log4j-with-open-source-enterprise-tools-anchore/
+
+##Scan an AWS environment for cloud configuration vulnerabilities
+> AWS Config
+> AWS SecurityHub
+### Example vulnerability
+> For AWS Config
+    Was able to detect securityhub-iam-customer-policy-blocked-kms-actions-d79669a9
+> For AWS SecurityHub
+    Was able to detect CIS.4.1	Ensure no security groups allow ingress from 0.0.0.0/0 to port 22

@@ -1,0 +1,13 @@
+
+# What additional architectural change can be made to reduce the internet facing attack surface of the web application instance.
+> Totally remove SSH access on the EC2 instances and just use Session Manager (under Systems Manager) instead to gain access to the terminal.
+> If possible, force HTTPS 443 connection only on the load balancer. This ensures that all connections are encrypted.
+
+# Assuming the IAM permissions for the S3 bucket are still insecure, would creating VPC private endpoints for S3 prevent the unauthorized access to the secrets bucket.
+> No, creating VPC private endpoints for S3 would not prevent unauthorized access to the secrets bucket. To prevent unauthorized access, the IAM Role Policy would need to be re-configured with the least privilege access.
+
+# Will applying default encryption setting to the s3 buckets encrypt the data that already exists?
+> No, existing objects on the S3 buckets will note be affected by the encryption, only new objects will be encrypted. To encrypt existing objects, you can use Amazon S3 Batch Operations.
+
+# What would happen if the original cloud formation templates are applied to this environment.
+> If the original cloud formation template is to be applied to the existing environment, it would ovewrite everything, removing all the changes that were done. It will be back to its original state.
